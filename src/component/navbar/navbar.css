@@ -1,0 +1,11 @@
+.navbar{
+    background-color: #fff;
+    box-shadow: 2px 2px 2px grey;
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.dropdown{
+    width: 120px;
+    text-align: center;
+}
