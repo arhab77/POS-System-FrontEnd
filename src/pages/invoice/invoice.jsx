@@ -2,16 +2,20 @@ import React, { useEffect } from "react";
 import { Button, Card, Container, Table } from "react-bootstrap";
 import Navbars from "../../component/navbar/navbar";
 import { Link, useParams } from "react-router-dom";
-import { connect, useSelector } from "react-redux";
-import { getNewOrder } from "../../app/action/orderAction";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { getInvoiceOrder, getNewOrder } from "../../app/action/orderAction";
 
 const InvoicePage = () => {
     const { orderId } = useParams();
-    const orderData = useSelector((state) => state.order.orderData)
+    const invoice = useSelector((state) => state.order.items);
+    const dispatch = useDispatch();
+
+    const items = invoice[0];
+    console.log(items);
 
     useEffect(() => {
-        getNewOrder(orderId);
-    },[orderId]);
+        dispatch(getInvoiceOrder(orderId));
+    },[dispatch, orderId]);
 
     return(
         <div>
@@ -31,28 +35,31 @@ const InvoicePage = () => {
                                             <tbody>
                                     <tr>
                                         <td>Status</td>
-                                        <td>{orderData.status}</td>
+                                        <td>{items.payment_status}</td>
                                     </tr>
                                     <tr>
                                         <td>Order ID</td>
-                                        <td>{orderData._id}</td>
+                                        <td>{items.order.order_number}</td>
                                     </tr>
                                     <tr>
                                         <td>Total Amount</td>
-                                        <td>Rp. {orderData.delivery_fee}</td>
+                                        <td>Rp. {items.total}</td>
                                     </tr>
                                     <tr>
                                         <td>Billed To</td>
                                         <td>
-                                            {orderData.user}
+                                            {`
+                                                ${items.user.fullname},
+                                                ${items.user.email}
+                                            `}
                                             <br />
                                             <br />
                                             {`
-                                                ${orderData.delivery_address.provinsi}, 
-                                                ${orderData.delivery_address.kabupaten},
-                                                ${orderData.delivery_address.kecamatan},
-                                                ${orderData.delivery_address.kelurahan}, 
-                                                ${orderData.delivery_address.detail}
+                                                ${items.delivery_address.provinsi}, 
+                                                ${items.delivery_address.kabupaten},
+                                                ${items.delivery_address.kecamatan},
+                                                ${items.delivery_address.kelurahan}, 
+                                                ${items.delivery_address.detail}
                                             `}
                                         </td>
                                     </tr>
@@ -64,12 +71,14 @@ const InvoicePage = () => {
                                 </tbody>
                                 <br /><br />
                                     <tr>
-                                        <td>
-                                            
+                                        <td style={{textAlign:'left'}}>
+                                            <Link to={`/order`} >
+                                                <Button variant="outline-danger">Back</Button>
+                                            </Link>
                                         </td>
                                         <td style={{textAlign:'right'}}>
                                             <Link to={`/order`} >
-                                                <Button variant="dark">Next</Button>
+                                                <Button variant="outline-success">Paid</Button>
                                             </Link>
                                         </td>
                                     </tr>
@@ -83,7 +92,7 @@ const InvoicePage = () => {
 }
 
 const mapStateToProps = (state) => ({
-    orderData: state.order.orderData,
+    invoice: state.order.items,
 });
   
-export default connect(mapStateToProps, { getNewOrder })(InvoicePage);
+export default connect(mapStateToProps)(InvoicePage);

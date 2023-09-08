@@ -19,9 +19,10 @@ const ConfirmPage = () => {
             delivery_address: selectedAddress
         }
 
-        dispatch(createOrder(orderData));
+        const newOrder = await dispatch(createOrder(orderData));
+        console.log(newOrder);
         alert('Order Success');
-        navigate('/invoice')
+        navigate(`/invoice/${newOrder._id}`)
     }
 
     return(

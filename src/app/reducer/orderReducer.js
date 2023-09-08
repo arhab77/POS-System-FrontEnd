@@ -20,7 +20,7 @@ const orderReducer = (state = intialstate, action) => {
         case 'CREATE_ORDER':
             return {
                 ...state,
-                orderData: action.payload
+                items: [action.payload]
             }
         case 'OPEN_ITEMS':
             return {
@@ -32,8 +32,7 @@ const orderReducer = (state = intialstate, action) => {
             }
         case 'GET_INVOICE':
             return {
-                ...state,
-                invoice: action.payload
+                items: [action.payload]
             }
         
         default:

@@ -16,30 +16,33 @@ import ConfirmPage from './pages/confirm/confirm';
 import InvoicePage from './pages/invoice/invoice';
 import { Provider } from 'react-redux';
 import store from './app/store';
+import { ToastProvider } from 'react-toast-notifications';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Router>
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/order" element={<Orders />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/login" element={<LoginUser />} />
-            <Route path="/register" element={<RegisterUser />} />
-            <Route path="/data-category" element={<DataCategory />} />
-            <Route path="/data-tag" element={<DataTag />} />
-            <Route path="/data-product" element={<DataProduct />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/confirm" element={<ConfirmPage />} />
-            <Route path="/invoice" element={<InvoicePage />} />
-          </Routes>
-        </div>
-      </Router>
-    </Provider>
+        <ToastProvider>
+        <Router>
+          <div className="App">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/order" element={<Orders />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/login" element={<LoginUser />} />
+              <Route path="/register" element={<RegisterUser />} />
+              <Route path="/data-category" element={<DataCategory />} />
+              <Route path="/data-tag" element={<DataTag />} />
+              <Route path="/data-product" element={<DataProduct />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/confirm" element={<ConfirmPage />} />
+              <Route path="/invoice/:orderId" element={<InvoicePage />} />
+            </Routes>
+          </div>
+        </Router>
+    </ToastProvider>
+      </Provider>
   );
 }
 

@@ -32,6 +32,7 @@ export const createOrder = (orderData) => async(dispatch) => {
             type: 'CREATE_ORDER',
             payload: response.data
         })
+        return response.data;
     } catch (error) {
         console.log('Error post order: ', error)
     }
@@ -46,11 +47,12 @@ export const toggleOpenItems = (orderId) => {
 
 export const getInvoiceOrder = (orderId) => async(dispatch) => {
     try {
-        const response = await axiosDriver.get(`http://localhost:3001/api/invoice/:${orderId}`);
+        const response = await axiosDriver.get(`http://localhost:3001/api/invoice/${orderId}`);
         dispatch({
             type: 'GET_INVOICE',
             payload: response.data
         })
+        return response.data
     } catch (error) {
         console.log("Error get Invoice: ",error)
     }

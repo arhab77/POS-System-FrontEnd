@@ -5,6 +5,7 @@ import axiosDriver from "../../utils/axios";
 import { Link } from "react-router-dom";
 import { addToCart, getCart } from "../../app/action/cartAction";
 import { connect, useDispatch, useSelector } from "react-redux";
+import { useToasts } from "react-toast-notifications";
 
 const Cardsproduct = ({addToCart, getCart}) => {
   const [product, setProduct] = useState([]);
@@ -19,6 +20,7 @@ const Cardsproduct = ({addToCart, getCart}) => {
   const [selectedTag, setSelectTag] = useState([]);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
+  const {addToast} = useToasts();
 
   useEffect(() => {
     let apiUrl = `http://localhost:3001/api/Product?skip=${skip}&limit=${perPage}`
@@ -85,6 +87,7 @@ const Cardsproduct = ({addToCart, getCart}) => {
 
   const handleAddToCart = (product) => {
       addToCart(product);
+      addToast('Add To Cart Successfully', {appearance: 'success', autoDismiss: true});
   }
 
   // const handleTagChange = (tagId) => {

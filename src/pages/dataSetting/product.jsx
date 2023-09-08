@@ -7,6 +7,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import axiosDriver from "../../utils/axios";
 import AddProduct from "../../component/modal/addProducts";
 import EditProduct from "../../component/modal/editProduct";
+import { useToasts } from "react-toast-notifications";
 
 const DataProduct = () => {
     const [data, setdata] = useState([]);
@@ -16,6 +17,7 @@ const DataProduct = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [page, setPage] = useState(1);
     const [skip, setSkip] = useState(0);
+    const {addToast} = useToasts();
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -50,6 +52,11 @@ const DataProduct = () => {
             const response = await axiosDriver.get('http://localhost:3001/api/Product');
             setdata(response.data.data);
             setEditProduct(null);
+            addToast('Update Successfully', {appearance: 'success', autoDismiss: true});
+            setTimeout(() => {
+                window.location.reload();
+            }, 5000);
+            window.location.reload();
         } catch (err) {
             console.log(err);
         }
@@ -66,14 +73,21 @@ const DataProduct = () => {
         });
         formData.append('price', ProductPrice);
         await axiosDriver.post("http://localhost:3001/api/Product", formData);
-        window.location.reload();
+        addToast('Add Successfully', {appearance: 'success', autoDismiss: true});
+        setTimeout(() => {
+            window.location.reload();
+        }, 5000);
     }
 
     const handleDeleteProduct = (id) => {
         axiosDriver.delete(`http://localhost:3001/api/Product/${id}`)
         .then((res) => {
             setdata(data.filter(item => item._id !== id));
-        })
+        });
+        addToast('Delete Successfully', {appearance: 'error', autoDismiss: true});
+        setTimeout(() => {
+            window.location.reload();
+        }, 5000);
     }
 
     const handlePageChange = (pageNumber) => {
