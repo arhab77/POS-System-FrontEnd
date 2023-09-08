@@ -7,16 +7,14 @@ import Cardsproduct from "../../component/cardProduct/cardProduct";
 const Home = () => {
     return(
         <div>
-            <Container fluid>
+            <Container fluid >
                 <Row style={{textAlign: 'left'}}>
                     <Col sm={2} style={{textAlign: 'center'}}>
                         <Sidebar/>
                     </Col>
                     <Col sm={10}>
                         <br />
-                        <Row>
                             <Col><Cardsproduct/></Col>
-                        </Row>
                         <br />
                     </Col>
                 </Row>

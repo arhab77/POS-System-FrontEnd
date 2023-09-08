@@ -100,13 +100,13 @@ const Cardsproduct = ({addToCart, getCart}) => {
 
   const renderCards = () => {
     return product.map((item, id) => (
-      <Col key={id} md={2} lg={3}>
-        <Card style={{ width: '18rem', marginBottom: '20px', height:"380px" }}>
+      <Col key={id} md={2} lg={2} className="d-flex justify-content-center">
+        <Card style={{ width: '16rem', marginBottom: '20px', height:"350px" }}>
           <div style={{textAlign:'center'}}>
             <Card.Img 
               variant="top" 
               src={`http://localhost:3001/images/product/${item.image_url}`} 
-              style={{height: '180px', width: '260px', margin:'5px', borderRadius:'5px'}}
+              style={{height: '150px', width: '200px', margin:'5px', borderRadius:'5px'}}
             />
           </div>
           <Card.Body>
@@ -135,7 +135,7 @@ const Cardsproduct = ({addToCart, getCart}) => {
 
   return(
     <div>
-      <Navbar>
+      <Navbar >
         <Container fluid>
           <Navbar.Brand href="#">MyStore</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -187,7 +187,7 @@ const Cardsproduct = ({addToCart, getCart}) => {
       </Navbar>
 
 
-      <div>
+      <div >
         {
           tag.map((item, id) => (
             <ToggleButtonGroup
@@ -197,15 +197,20 @@ const Cardsproduct = ({addToCart, getCart}) => {
               onChange={setSelectTag}
               className="mt-3"
             >
-              <ToggleButton id={`tbg-btn-${id}`} value={item.name} variant={selectedTag.includes(item.name)?"dark":"outline-dark"}>
-                {item.name}
+              <ToggleButton 
+                id={`tbg-btn-${id}`} 
+                value={item.name} 
+                style={{marginLeft:'5px'}}
+                variant={selectedTag.includes(item.name)?"dark":"outline-dark"}
+              >
+                  {item.name} 
               </ToggleButton>
             </ToggleButtonGroup>
           ))
         }
       </div><br />
 
-      <Row>
+      <Row style={{textAlign:'center'}}>
         {renderCards()}
       </Row><br /><br />
       <Row>

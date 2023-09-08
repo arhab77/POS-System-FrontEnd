@@ -72,7 +72,7 @@ const InvoicePage = () => {
                                 <br /><br />
                                     <tr>
                                         <td style={{textAlign:'left'}}>
-                                            <Link to={`/order`} >
+                                            <Link to={`/home`} >
                                                 <Button variant="outline-danger">Back</Button>
                                             </Link>
                                         </td>
